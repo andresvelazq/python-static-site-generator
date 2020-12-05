@@ -3,12 +3,12 @@ from pathlib import Path
 class Site:
     # Constructor for class
     def __init__(self, source, dest):
-        self.source = Path()
-        self.dest = Path()
+        self.source = Path(source)
+        self.dest = Path(dest)
 
     # Find root directory
     def create_dir(self, path):
-        directory = Path(self.dest / relative_to(self.source))
+        directory = self.dest / path.relative_to(self.source)
         directory.mkdir(parents=True, exist_ok=True)
 
     # Make the destination directory
