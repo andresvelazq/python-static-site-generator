@@ -17,4 +17,4 @@ class Site:
         # Recreate all paths
         for path in self.source.rglob("*"):
             if os.path.isdir(path):
-                create_dir(self, path)
+                self.create_dir(path)
