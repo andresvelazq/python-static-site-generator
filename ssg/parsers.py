@@ -32,23 +32,23 @@ class Parser:
 class ResourceParser(Parser):
     extensions = [".jpg", ".png", ".gif", ".css", ".html"]
 
-    def parse(self, path: Path, source: Path, dest: Path):
+    def parse(self, path, source, dest):
         copy(path, source, dest)
 
 class MarkdownParser(Parser):
     extensions = [".md", ".markdown"]
 
-    def parse(self, path: Path, source: Path, dest: Path):
+    def parse(self, path, source, dest):
         content = Content.load(self.read(path))
         html = markdown(content.body)
-        self.write(html, path, dest, content, extensions)
-        sys.stdout.write("\x1b[1;32m{} converted to HTML. Metadata: {}\n").format(path.name, content)
+        self.write(path, dest, html)
+        sys.stdout.write("\x1b[1;32m{} converted to HTML. Metadata: {}\n".format(path.name, content))
 
 class ReStructuredTextParser(Parser):
     extensions = [".rst"]
 
-    def parse(self, path: Path, source: Path, dest: Path):
+    def parse(self, path, source, dest):
         content = Content.load(self.read(path))
         html = publish_parts(content.body, writer_name="html5")
-        self.write(html["html_body"], path, dest, content, extensions)
-        sys.stdout.write("\x1b[1;32m{} converted to HTML. Metadata: {}\n").format(path.name, content)
+        self.write(path, dest, html["html_body"])
+        sys.stdout.write("\x1b[1;32m{} converted to HTML. Metadata: {}\n".format(path.name, content))
