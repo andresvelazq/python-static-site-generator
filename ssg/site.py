@@ -5,7 +5,7 @@ class Site:
     def __init__(self, source, dest, parsers=None):
         self.source = Path(source)
         self.dest = Path(dest)
-        self.parsers = []
+        self.parsers = parsers or []
 
     # Find root directory
     def create_dir(self, path):
@@ -22,14 +22,14 @@ class Site:
             elif path.is_file():
                 self.run_parser(path)
 
-    def load_parser(self, extension)
+    def load_parser(self, extension):
         for parser in self.parsers:
-            if parser.valid_extension(extension)
+            if parser.valid_extension(extension):
                 return parser
 
-    def run_parser(self, path)
+    def run_parser(self, path):
         parser = self.load_parser(path.suffix)
         if parser is not None:
             parser.parse(path, self.source, self.dest)
-        else
+        else:
             print("Not Implemented")
