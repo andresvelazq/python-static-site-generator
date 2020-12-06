@@ -33,7 +33,7 @@ class ResourceParser(Parser):
     extensions = [".jpg", ".png", ".gif", ".css", ".html"]
 
     def parse(self, path, source, dest):
-        copy(path, source, dest)
+        self.copy(path, source, dest)
 
 class MarkdownParser(Parser):
     extensions = [".md", ".markdown"]
